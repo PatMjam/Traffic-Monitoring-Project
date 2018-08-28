@@ -1,3 +1,5 @@
+package traffic;
+
 import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
@@ -19,6 +21,7 @@ import javax.swing.table.AbstractTableModel;
 public class TrafficApplication extends javax.swing.JFrame {
     
     ArrayList<Object[]> dataValues;
+    TrafficReading[] tReadings = new TrafficReading[100];
     //JTable table ;
     MyModel myTrafficModel;
    
@@ -59,7 +62,9 @@ public class TrafficApplication extends javax.swing.JFrame {
         TrafficMonitoringData();
   
         initComponents();
-        
+
+        trafficReadingData();
+
 
         
     }
@@ -199,8 +204,22 @@ public class TrafficApplication extends javax.swing.JFrame {
         });
 
         btnVehicle.setText("Vehicle");
+        btnVehicle.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnVehicleActionPerformed(evt);
+            }
+        });
 
         btnVelocity.setText("Velocity");
+        btnVelocity.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnVelocityActionPerformed(evt);
+            }
+        });
 
         lblSort.setText("Sort:");
 
@@ -333,8 +352,29 @@ public class TrafficApplication extends javax.swing.JFrame {
     {//GEN-HEADEREND:event_btnLocationActionPerformed
         // TODO add your handling code here:
         bubbleSort(dataValues);
-        myTrafficModel.fireTableDataChanged();
+        myTrafficModel.fireTableDataChanged();        
+        
+        DList dList = new DList(); 
+        for(int count = 1; count<=6;count++) 
+            dList.head.append(new Node("Time","Location","NumberOfLanes","NumberOfVehicles","NumberOfVehiclesPerLane","AverageVelocity"));
+        
+        
+        
     }//GEN-LAST:event_btnLocationActionPerformed
+
+    private void btnVelocityActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnVelocityActionPerformed
+    {//GEN-HEADEREND:event_btnVelocityActionPerformed
+        InsertionSort(dataValues);
+        myTrafficModel.fireTableDataChanged();        
+    }//GEN-LAST:event_btnVelocityActionPerformed
+
+    private void btnVehicleActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnVehicleActionPerformed
+    {//GEN-HEADEREND:event_btnVehicleActionPerformed
+        // TODO add your handling code here:
+        SelectionSort(dataValues);
+        myTrafficModel.fireTableDataChanged();        
+        
+    }//GEN-LAST:event_btnVehicleActionPerformed
 
     /**
      * @param args the command line arguments
@@ -441,6 +481,21 @@ public class TrafficApplication extends javax.swing.JFrame {
         myTrafficModel = new MyModel(dataValues, columnNames);
     }
 
+
+    public void trafficReadingData()
+    {
+   
+        tReadings[1] = new TrafficReading("6:00am", "1", "3", "27","9", "70");
+        tReadings[2] = new TrafficReading("6:00am", "2", "2", "16","8", "80");
+        tReadings[3] = new TrafficReading("7:00am", "1", "3", "30","10", "60");
+        tReadings[4] = new TrafficReading("7:00am", "2", "2", "20","10", "60");
+        tReadings[5] = new TrafficReading("8:00am", "1", "3", "36","12", "40");
+        tReadings[6] = new TrafficReading("8:00am", "2", "2", "22", "11", "50");
+
+    }
+
+
+
     
     //---------------------------------------------------------------------------------------------------
     // Source: http://www.dreamincode.net/forums/topic/231112-from-basic-jtable-to-a-jtable-with-a-tablemodel/
@@ -526,51 +581,47 @@ public class TrafficApplication extends javax.swing.JFrame {
             }  
             System.out.println(arr.get(j)[0] + " - " + arr.get(j)[1]);  
         }  
-    }  
-
-
+    }     
+   
 
    public static void SelectionSort(ArrayList<Object[]> arr) 
     {
         
-        for(int j=0; j<arr.size(); j++) 
+        for(int i=0; i<arr.size(); i++) 
         {  
-            for(int i=j+1; i<arr.size(); i++)
+            int index = i;
+            for(int j=i+1; j<arr.size(); j++)
             {  
-                if((arr.get(i)[1]).toString().compareToIgnoreCase(arr.get(j)[1].toString())<0)
+                if((Integer.parseInt(arr.get(i)[2].toString())) > (Integer.parseInt(arr.get(j)[2].toString())))
                 {  
-                   Object[] words = arr.get(j); 
-                   arr.set(j, arr.get(i));
-                   arr.set(i, words);
+                   index = j;
                 }  
             }  
-            System.out.println(arr.get(j)[0] + " - " + arr.get(j)[1]);  
+            Object [] min = arr.get(index);
+            arr.set(index, arr.get(i));
+            arr.set(i, min);
+            //System.out.println(arr.get(j)[0] + " - " + arr.get(j)[1]);  
         }  
-    }  
-
-   
-   /*
-   
-   public static void SelectionSort ( int [ ] num )
-{
- int i, j, first, temp;
- for ( i = num.length - 1; i > 0; i - - )
- {
- first = 0; //initialize to subscript of first element
- for(j = 1; j <= i; j ++) //locate smallest element between positions 1 and i.
- {
- if( num[ j ] < num[ first ] )
- first = j;
- }
- temp = num[ first ]; //swap smallest found with element in position i.
- num[ first ] = num[ i ];
- num[ i ] = temp;
-
- }
-}
-   
-   */
-
+    }
+              
+  
+   public static void InsertionSort(ArrayList<Object[]> arr)
+   {
+            
+        int i;
+        int j; // the number of items sorted so far
+        Object[] key; // the item to be inserted
+            
+        for (j = 1; j < arr.size(); j++) // Start with 1 (not 0)
+        {
+                key = arr.get(j);
+                for(i = j - 1; (i >= 0) && (arr.get(i)[3].toString().compareToIgnoreCase(key[3].toString())<0); i--)
+                {
+                    arr.set(i+1, arr.get(i));
+                }
+                arr.set(i+1, key);
+        }
+    }
 
 
 }
