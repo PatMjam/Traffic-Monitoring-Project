@@ -113,6 +113,7 @@ public class TrafficApplication extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         txtLinkedList.setColumns(20);
+        txtLinkedList.setLineWrap(true);
         txtLinkedList.setRows(5);
         jScrollPane2.setViewportView(txtLinkedList);
 
@@ -125,6 +126,13 @@ public class TrafficApplication extends javax.swing.JFrame {
         lblLinkedList.setText("Linked List:");
 
         btnDisplay.setText("Display");
+        btnDisplay.addActionListener(new java.awt.event.ActionListener()
+        {
+            public void actionPerformed(java.awt.event.ActionEvent evt)
+            {
+                btnDisplayActionPerformed(evt);
+            }
+        });
 
         btnPreOrderSave.setText("Save");
 
@@ -352,20 +360,24 @@ public class TrafficApplication extends javax.swing.JFrame {
     {//GEN-HEADEREND:event_btnLocationActionPerformed
         // TODO add your handling code here:
         bubbleSort(dataValues);
-        myTrafficModel.fireTableDataChanged();        
-        
-        DList dList = new DList(); 
-        for(int count = 1; count<=6;count++) 
-            dList.head.append(new Node("Time","Location","NumberOfLanes","NumberOfVehicles","NumberOfVehiclesPerLane","AverageVelocity"));
-        
-        
+        myTrafficModel.fireTableDataChanged();
+
+        DList dList = new DList();
+        for (int i = 1; i <= tReadings.length; i++)
+        {
+            dList.head.append(new Node(tReadings[i].getTime(), tReadings[i].getLocation(), tReadings[i].getNumberOfLanes(), tReadings[i].getTotalNumberOfVehicles(), tReadings[i].getNumberOfLanes(), tReadings[i].getAverageVelocity()));
+         txtLinkedList.append(dList.convertToString());
+        }
+
+
         
     }//GEN-LAST:event_btnLocationActionPerformed
 
     private void btnVelocityActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnVelocityActionPerformed
     {//GEN-HEADEREND:event_btnVelocityActionPerformed
         InsertionSort(dataValues);
-        myTrafficModel.fireTableDataChanged();        
+        myTrafficModel.fireTableDataChanged(); 
+        
     }//GEN-LAST:event_btnVelocityActionPerformed
 
     private void btnVehicleActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnVehicleActionPerformed
@@ -375,6 +387,11 @@ public class TrafficApplication extends javax.swing.JFrame {
         myTrafficModel.fireTableDataChanged();        
         
     }//GEN-LAST:event_btnVehicleActionPerformed
+
+    private void btnDisplayActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnDisplayActionPerformed
+    {//GEN-HEADEREND:event_btnDisplayActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDisplayActionPerformed
 
     /**
      * @param args the command line arguments
@@ -460,7 +477,7 @@ public class TrafficApplication extends javax.swing.JFrame {
         dataValues = new ArrayList();
         dataValues.add(new Object[]
         {
-            "6:00am", "7", "9", "70"
+            "6:00am", "7", "9", "70", 
         });
         dataValues.add(new Object[]
         {

@@ -136,6 +136,7 @@
         <Component class="javax.swing.JTextArea" name="txtLinkedList">
           <Properties>
             <Property name="columns" type="int" value="20"/>
+            <Property name="lineWrap" type="boolean" value="true"/>
             <Property name="rows" type="int" value="5"/>
           </Properties>
         </Component>
@@ -170,6 +171,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Display"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDisplayActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btnPreOrderSave">
       <Properties>

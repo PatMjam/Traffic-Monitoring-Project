@@ -123,17 +123,23 @@ class DList
         return current;
     }
 
-    public String toString()
+    public String convertToString()
     {
         String str = "";
         if (head.next == head)
         {             // list is empty, only header Node
             return "List Empty";
         }
-        str = "list content = ";
+        //
         for (Node current = head.next; current != head && current != null; current = current.next)
         {
-            str = str + current.myTrafficReading.getTime();
+            str = str + "[ ";
+            str = str + current.myTrafficReading.getTime() + ", ";
+            str =  str + current.myTrafficReading.getLocation() + ", ";
+            str = str + current.myTrafficReading.getNumberOfLanes() + ", ";
+            str = str + current.myTrafficReading.getTotalNumberOfVehicles() + ", ";
+            str = str + current.myTrafficReading.getAverageNumberOfVehiclePerLane() + ", ";
+            str = str + current.myTrafficReading.getAverageVelocity() + "]   ";
         }
         return str;
     }
