@@ -31,40 +31,13 @@ public class TrafficApplication extends javax.swing.JFrame {
      */
     public TrafficApplication() {
     
-//                 // Create column names
-//        String columnNames[] =
-//        {
-//            "Time", "Location", "AvVehicle#", "AvVelocity"
-//        };
-//        ArrayList<Object[]> dataValues = new ArrayList();
-//        dataValues.add(new Object[]
-//        {
-//            "6:00am", "1", "9", "70"
-//        });
-//        dataValues.add(new Object[]
-//        {
-//            "6:00am", "2", "8", "80"
-//        });
-//        dataValues.add(new Object[]
-//        {
-//            "7:00am", "2", "10", "60"
-//        });
-//        dataValues.add(new Object[]
-//        {
-//            "8:00am", "2", "11", "50"
-//        });
-//        dataValues.add(new Object[]
-//        {
-//            "9:00am", "2", "15", "60"
-//        });
-//  myTrafficModel = new MyModel(dataValues, columnNames);
+
   
         TrafficMonitoringData();
   
         initComponents();
 
         trafficReadingData();
-
 
         
     }
@@ -363,20 +336,22 @@ public class TrafficApplication extends javax.swing.JFrame {
         myTrafficModel.fireTableDataChanged();
 
         DList dList = new DList();
-        for (int i = 1; i <= tReadings.length; i++)
+        for (int i = 0; i <= tReadings.length; i++)
         {
             dList.head.append(new Node(tReadings[i].getTime(), tReadings[i].getLocation(), tReadings[i].getNumberOfLanes(), tReadings[i].getTotalNumberOfVehicles(), tReadings[i].getNumberOfLanes(), tReadings[i].getAverageVelocity()));
-         txtLinkedList.append(dList.convertToString());
+            txtLinkedList.append(dList.convertToString());
         }
 
 
-        
+
     }//GEN-LAST:event_btnLocationActionPerformed
 
     private void btnVelocityActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_btnVelocityActionPerformed
     {//GEN-HEADEREND:event_btnVelocityActionPerformed
         InsertionSort(dataValues);
         myTrafficModel.fireTableDataChanged(); 
+        
+        
         
     }//GEN-LAST:event_btnVelocityActionPerformed
 
@@ -502,12 +477,12 @@ public class TrafficApplication extends javax.swing.JFrame {
     public void trafficReadingData()
     {
    
-        tReadings[1] = new TrafficReading("6:00am", "1", "3", "27","9", "70");
-        tReadings[2] = new TrafficReading("6:00am", "2", "2", "16","8", "80");
-        tReadings[3] = new TrafficReading("7:00am", "1", "3", "30","10", "60");
-        tReadings[4] = new TrafficReading("7:00am", "2", "2", "20","10", "60");
-        tReadings[5] = new TrafficReading("8:00am", "1", "3", "36","12", "40");
-        tReadings[6] = new TrafficReading("8:00am", "2", "2", "22", "11", "50");
+        tReadings[0] = new TrafficReading("6:00am", "1", "3", "27","9", "70");
+        tReadings[1] = new TrafficReading("6:00am", "2", "2", "16","8", "80");
+        tReadings[2] = new TrafficReading("7:00am", "1", "3", "30","10", "60");
+        tReadings[3] = new TrafficReading("7:00am", "2", "2", "20","10", "60");
+        tReadings[4] = new TrafficReading("8:00am", "1", "3", "36","12", "40");
+        tReadings[5] = new TrafficReading("8:00am", "2", "2", "22", "11", "50");
 
     }
 
